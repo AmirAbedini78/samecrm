@@ -37,6 +37,30 @@
                 'placeholder' => __('product.sku')]); !!}
             </div>
         </div>
+        
+        <!-- Sepidar Fields -->
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('item_code', __('product.item_code') . ':') !!} @show_tooltip(__('tooltip.item_code'))
+                {!! Form::text('item_code', null, ['class' => 'form-control',
+                'placeholder' => __('product.item_code')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('item_type', __('product.item_type') . ':*') !!}
+                {!! Form::select('item_type', [
+                    'raw_material' => __('product.raw_material'),
+                    'purchased_goods' => __('product.purchased_goods'),
+                    'sale_goods' => __('product.sale_goods'),
+                    'semi_finished' => __('product.semi_finished'),
+                    'service' => __('product.service'),
+                    'asset' => __('product.asset'),
+                    'waste' => __('product.waste')
+                ], 'sale_goods', ['class' => 'form-control select2', 'required']); !!}
+            </div>
+        </div>
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('barcode_type', __('product.barcode_type') . ':*') !!}
@@ -221,6 +245,31 @@
                 </label> @show_tooltip(__('lang_v1.tooltip_sr_no'))
             </div>
         </div>
+        
+        <!-- Sepidar Stock Management Fields -->
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('min_stock', __('product.min_stock') . ':') !!} @show_tooltip(__('tooltip.min_stock'))
+                {!! Form::text('min_stock', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.min_stock')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('max_stock', __('product.max_stock') . ':') !!} @show_tooltip(__('tooltip.max_stock'))
+                {!! Form::text('max_stock', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.max_stock')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('reorder_point', __('product.reorder_point') . ':') !!} @show_tooltip(__('tooltip.reorder_point'))
+                {!! Form::text('reorder_point', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.reorder_point')]); !!}
+            </div>
+        </div>
 
         <div class="col-sm-4">
             <div class="form-group">
@@ -266,6 +315,153 @@
             <div class="form-group">
                 {!! Form::label('weight', __('lang_v1.weight') . ':') !!}
                 {!! Form::text('weight', !empty($duplicate_product->weight) ? $duplicate_product->weight : null, ['class' => 'form-control', 'placeholder' => __('lang_v1.weight')]); !!}
+            </div>
+        </div>
+        
+        <!-- Sepidar Pricing Fields -->
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('default_purchase_price', __('product.default_purchase_price') . ':') !!}
+                {!! Form::text('default_purchase_price', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.default_purchase_price')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('default_sales_price', __('product.default_sales_price') . ':') !!}
+                {!! Form::text('default_sales_price', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.default_sales_price')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('profit_percentage', __('product.profit_percentage') . ':') !!}
+                {!! Form::text('profit_percentage', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.profit_percentage')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('discount_limit', __('product.discount_limit') . ':') !!}
+                {!! Form::text('discount_limit', null, ['class' => 'form-control input_number',
+                'placeholder' => __('product.discount_limit')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('currency', __('product.currency') . ':') !!}
+                {!! Form::select('currency', [
+                    'USD' => 'USD',
+                    'EUR' => 'EUR',
+                    'IRR' => 'IRR',
+                    'AED' => 'AED'
+                ], 'USD', ['class' => 'form-control select2']); !!}
+            </div>
+        </div>
+        
+        <!-- Sepidar Technical Specifications -->
+        <div class="col-sm-6">
+            <div class="form-group">
+                {!! Form::label('dimensions', __('product.dimensions') . ':') !!}
+                {!! Form::text('dimensions', null, ['class' => 'form-control',
+                'placeholder' => __('product.dimensions')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-6">
+            <div class="form-group">
+                {!! Form::label('color', __('product.color') . ':') !!}
+                {!! Form::text('color', null, ['class' => 'form-control',
+                'placeholder' => __('product.color')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-6">
+            <div class="form-group">
+                {!! Form::label('model', __('product.model') . ':') !!}
+                {!! Form::text('model', null, ['class' => 'form-control',
+                'placeholder' => __('product.model')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-6">
+            <div class="form-group">
+                {!! Form::label('default_rack', __('product.default_rack') . ':') !!}
+                {!! Form::text('default_rack', null, ['class' => 'form-control',
+                'placeholder' => __('product.default_rack')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-6">
+            <div class="form-group">
+                {!! Form::label('default_row', __('product.default_row') . ':') !!}
+                {!! Form::text('default_row', null, ['class' => 'form-control',
+                'placeholder' => __('product.default_row')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-6">
+            <div class="form-group">
+                {!! Form::label('default_shelf', __('product.default_shelf') . ':') !!}
+                {!! Form::text('default_shelf', null, ['class' => 'form-control',
+                'placeholder' => __('product.default_shelf')]); !!}
+            </div>
+        </div>
+        
+        <!-- Sepidar Account Fields -->
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('inventory_account_id', __('product.inventory_account_id') . ':') !!}
+                {!! Form::text('inventory_account_id', null, ['class' => 'form-control',
+                'placeholder' => __('product.inventory_account_id')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('purchase_account_id', __('product.purchase_account_id') . ':') !!}
+                {!! Form::text('purchase_account_id', null, ['class' => 'form-control',
+                'placeholder' => __('product.purchase_account_id')]); !!}
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                {!! Form::label('sales_account_id', __('product.sales_account_id') . ':') !!}
+                {!! Form::text('sales_account_id', null, ['class' => 'form-control',
+                'placeholder' => __('product.sales_account_id')]); !!}
+            </div>
+        </div>
+        
+        <!-- Sepidar Status Fields -->
+        <div class="col-sm-4">
+            <div class="form-group">
+                <br>
+                <label>
+                    {!! Form::checkbox('serial_required', 1, false, ['class' => 'input-icheck']); !!} <strong>@lang('product.serial_required')</strong>
+                </label>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                <br>
+                <label>
+                    {!! Form::checkbox('expiry_required', 1, false, ['class' => 'input-icheck']); !!} <strong>@lang('product.expiry_required')</strong>
+                </label>
+            </div>
+        </div>
+        
+        <div class="col-sm-4">
+            <div class="form-group">
+                <br>
+                <label>
+                    {!! Form::checkbox('is_active', 1, true, ['class' => 'input-icheck']); !!} <strong>@lang('product.is_active')</strong>
+                </label>
             </div>
         </div>
         @php

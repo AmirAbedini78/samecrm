@@ -122,6 +122,11 @@ class ModuleUtil extends Util
      */
     public function isSubscribed($business_id)
     {
+        // Check if user is superadmin - always allow access
+        if (auth()->check() && auth()->user()->can('superadmin')) {
+            return true;
+        }
+
         if ($this->isSuperadminInstalled()) {
             $package = \Modules\Superadmin\Entities\Subscription::active_subscription($business_id);
 

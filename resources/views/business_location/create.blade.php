@@ -23,6 +23,91 @@
                         {!! Form::text('location_id', null, ['class' => 'form-control', 'placeholder' => __( 'lang_v1.location_id' ) ]); !!}
                     </div>
                 </div>
+                
+                <!-- Sepidar Warehouse Fields -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('warehouse_code', __('business.warehouse_code') . ':') !!}
+                        {!! Form::text('warehouse_code', null, ['class' => 'form-control', 'placeholder' => __('business.warehouse_code')]); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('warehouse_type', __('business.warehouse_type') . ':*') !!}
+                        {!! Form::select('warehouse_type', [
+                            'central' => __('business.central'),
+                            'branch' => __('business.branch'),
+                            'consignment' => __('business.consignment'),
+                            'quarantine' => __('business.quarantine'),
+                            'waste' => __('business.waste'),
+                            'temporary' => __('business.temporary')
+                        ], 'central', ['class' => 'form-control select2', 'required']); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('keeper_id', __('business.warehouse_keeper') . ':') !!}
+                        {!! Form::select('keeper_id', $users, null, ['placeholder' => __('messages.please_select'), 'class' => 'form-control select2']); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('capacity', __('business.capacity') . ':') !!}
+                        {!! Form::text('capacity', null, ['class' => 'form-control input_number', 'placeholder' => __('business.capacity')]); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('capacity_unit', __('business.capacity_unit') . ':') !!}
+                        {!! Form::select('capacity_unit', [
+                            'm3' => 'm³',
+                            'm2' => 'm²',
+                            'kg' => 'kg',
+                            'ton' => 'ton'
+                        ], 'm3', ['class' => 'form-control select2']); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('inventory_account_id', __('business.inventory_account_id') . ':') !!}
+                        {!! Form::text('inventory_account_id', null, ['class' => 'form-control', 'placeholder' => __('business.inventory_account_id')]); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {!! Form::label('issue_account_id', __('business.issue_account_id') . ':') !!}
+                        {!! Form::text('issue_account_id', null, ['class' => 'form-control', 'placeholder' => __('business.issue_account_id')]); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {!! Form::label('storage_address', __('business.storage_address') . ':') !!}
+                        {!! Form::textarea('storage_address', null, ['class' => 'form-control', 'rows' => 3, 'placeholder' => __('business.storage_address')]); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {!! Form::label('description', __('business.description') . ':') !!}
+                        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 3, 'placeholder' => __('business.description')]); !!}
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <br>
+                        <label>
+                            {!! Form::checkbox('is_active', 1, true, ['class' => 'input-icheck']); !!} <strong>@lang('business.is_active')</strong>
+                        </label>
+                    </div>
+                </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         {!! Form::label('landmark', __( 'business.landmark' ) . ':') !!}

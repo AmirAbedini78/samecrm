@@ -1,9 +1,13 @@
 @if(!empty($__subscription) && env('APP_ENV') != 'demo')
+@php
+    $package_details = is_string($__subscription->package_details) ? json_decode($__subscription->package_details, true) : $__subscription->package_details;
+    $package_details = $package_details ?: [];
+@endphp
 <i class="fas fa-info-circle pull-left cursor-pointer" style= "color:white" aria-hidden="true" data-toggle="popover" data-html="true" title="@lang('superadmin::lang.active_package_description')" data-placement="right" data-trigger="hover" data-content="
     <table class='table table-condensed'>
      <tr class='text-center'> 
         <td colspan='2'>
-            {{$__subscription->package_details['name'] }}
+            {{ $__subscription->package->name ?? 'Ultimate Package' }}
         </td>
      </tr>
      <tr class='text-center'>
@@ -14,10 +18,10 @@
      <tr> 
         <td colspan='2'>
             <i class='fa fa-check text-success'></i>
-            @if($__subscription->package_details['location_count'] == 0)
+            @if(($package_details['location_count'] ?? 999) == 0)
                 @lang('superadmin::lang.unlimited')
             @else
-                {{$__subscription->package_details['location_count']}}
+                {{ $package_details['location_count'] ?? 999 }}
             @endif
 
             @lang('business.business_locations')
@@ -26,10 +30,10 @@
      <tr>
         <td colspan='2'>
             <i class='fa fa-check text-success'></i>
-            @if($__subscription->package_details['user_count'] == 0)
+            @if(($package_details['user_count'] ?? 999) == 0)
                 @lang('superadmin::lang.unlimited')
             @else
-                {{$__subscription->package_details['user_count']}}
+                {{ $package_details['user_count'] ?? 999 }}
             @endif
 
             @lang('superadmin::lang.users')
@@ -38,10 +42,10 @@
      <tr>
         <td colspan='2'>
             <i class='fa fa-check text-success'></i>
-            @if($__subscription->package_details['product_count'] == 0)
+            @if(($package_details['product_count'] ?? 999) == 0)
                 @lang('superadmin::lang.unlimited')
             @else
-                {{$__subscription->package_details['product_count']}}
+                {{ $package_details['product_count'] ?? 999 }}
             @endif
 
             @lang('superadmin::lang.products')
@@ -50,10 +54,10 @@
      <tr>
         <td colspan='2'>
             <i class='fa fa-check text-success'></i>
-            @if($__subscription->package_details['invoice_count'] == 0)
+            @if(($package_details['invoice_count'] ?? 999) == 0)
                 @lang('superadmin::lang.unlimited')
             @else
-                {{$__subscription->package_details['invoice_count']}}
+                {{ $package_details['invoice_count'] ?? 999 }}
             @endif
 
             @lang('superadmin::lang.invoices')

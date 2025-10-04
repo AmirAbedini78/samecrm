@@ -36,6 +36,12 @@ return [
     'enable_stock' => "Enable or disable stock management for a product. <br><br><small class='text-muted'>Stock Management should be disable mostly for services. Example: Hair-Cutting, Repairing, etc.</small>",
 
     'alert_quantity' => "Get alert when product stock reaches or goes below the specified quantity.<br><br><small class='text-muted'>Products with low stock will be displayed in dashboard - Product Stock Alert section.</small>",
+    
+    // Sepidar Tooltips
+    'item_code' => "Unique item code for the product. <br><br><small class='text-muted'>This is similar to SKU but more specific for inventory management.</small>",
+    'min_stock' => "Minimum stock level for the product. <br><br><small class='text-muted'>Alert will be generated when stock goes below this level.</small>",
+    'max_stock' => "Maximum stock level for the product. <br><br><small class='text-muted'>Alert will be generated when stock exceeds this level.</small>",
+    'reorder_point' => "Stock level at which reorder should be initiated. <br><br><small class='text-muted'>This helps in maintaining optimal inventory levels.</small>",
 
     'product_type' => '<b>Single product</b>: Product with no variations.
     <br><b>Variable product</b>: Product with variations such as size, color etc.

@@ -22,6 +22,11 @@ class Product extends Model
      */
     protected $casts = [
         'sub_unit_ids' => 'array',
+        'technical_specs' => 'array',
+        'custom_fields' => 'array',
+        'serial_required' => 'boolean',
+        'expiry_required' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     /**

@@ -198,6 +198,40 @@ class ProductController extends Controller
                     }
                 )
                 ->editColumn('category', '{{$category}} @if(!empty($sub_category))<br/> -- {{$sub_category}}@endif')
+                // Sepidar Fields
+                ->addColumn('item_code', function ($row) {
+                    return $row->item_code ?? '-';
+                })
+                ->addColumn('item_type', function ($row) {
+                    $types = [
+                        'raw_material' => __('product.raw_material'),
+                        'purchased_goods' => __('product.purchased_goods'),
+                        'sale_goods' => __('product.sale_goods'),
+                        'semi_finished' => __('product.semi_finished'),
+                        'service' => __('product.service'),
+                        'asset' => __('product.asset'),
+                        'waste' => __('product.waste')
+                    ];
+                    return $types[$row->item_type] ?? '-';
+                })
+                ->addColumn('min_stock', function ($row) {
+                    return $row->min_stock ? number_format($row->min_stock, 2) : '-';
+                })
+                ->addColumn('max_stock', function ($row) {
+                    return $row->max_stock ? number_format($row->max_stock, 2) : '-';
+                })
+                ->addColumn('reorder_point', function ($row) {
+                    return $row->reorder_point ? number_format($row->reorder_point, 2) : '-';
+                })
+                ->addColumn('serial_required', function ($row) {
+                    return $row->serial_required ? '<span class="label label-success">' . __('messages.yes') . '</span>' : '<span class="label label-default">' . __('messages.no') . '</span>';
+                })
+                ->addColumn('expiry_required', function ($row) {
+                    return $row->expiry_required ? '<span class="label label-success">' . __('messages.yes') . '</span>' : '<span class="label label-default">' . __('messages.no') . '</span>';
+                })
+                ->addColumn('is_active', function ($row) {
+                    return $row->is_active ? '<span class="label label-success">' . __('messages.yes') . '</span>' : '<span class="label label-danger">' . __('messages.no') . '</span>';
+                })
                 ->addColumn(
                     'action',
                     function ($row) use ($selling_price_group_count) {
@@ -446,7 +480,9 @@ class ProductController extends Controller
         }
         try {
             $business_id = $request->session()->get('user.business_id');
-            $form_fields = ['name', 'brand_id', 'unit_id', 'category_id', 'tax', 'type', 'barcode_type', 'sku', 'alert_quantity', 'tax_type', 'weight', 'product_description', 'sub_unit_ids', 'preparation_time_in_minutes', 'product_custom_field1', 'product_custom_field2', 'product_custom_field3', 'product_custom_field4', 'product_custom_field5', 'product_custom_field6', 'product_custom_field7', 'product_custom_field8', 'product_custom_field9', 'product_custom_field10', 'product_custom_field11', 'product_custom_field12', 'product_custom_field13', 'product_custom_field14', 'product_custom_field15', 'product_custom_field16', 'product_custom_field17', 'product_custom_field18', 'product_custom_field19', 'product_custom_field20',];
+            $form_fields = ['name', 'brand_id', 'unit_id', 'category_id', 'tax', 'type', 'barcode_type', 'sku', 'alert_quantity', 'tax_type', 'weight', 'product_description', 'sub_unit_ids', 'preparation_time_in_minutes', 'product_custom_field1', 'product_custom_field2', 'product_custom_field3', 'product_custom_field4', 'product_custom_field5', 'product_custom_field6', 'product_custom_field7', 'product_custom_field8', 'product_custom_field9', 'product_custom_field10', 'product_custom_field11', 'product_custom_field12', 'product_custom_field13', 'product_custom_field14', 'product_custom_field15', 'product_custom_field16', 'product_custom_field17', 'product_custom_field18', 'product_custom_field19', 'product_custom_field20', 
+                // Sepidar Fields
+                'item_code', 'item_type', 'min_stock', 'max_stock', 'reorder_point', 'inventory_account_id', 'purchase_account_id', 'sales_account_id', 'default_rack', 'default_row', 'default_shelf', 'dimensions', 'color', 'model', 'default_purchase_price', 'default_sales_price', 'profit_percentage', 'discount_limit', 'currency', 'serial_required', 'expiry_required', 'is_active'];
 
             $module_form_fields = $this->moduleUtil->getModuleFormField('product_form_fields');
             if (! empty($module_form_fields)) {
@@ -485,6 +521,40 @@ class ProductController extends Controller
             if (! empty($request->input('enable_sr_no')) && $request->input('enable_sr_no') == 1) {
                 $product_details['enable_sr_no'] = 1;
             }
+            
+            // Process Sepidar fields
+            if (! empty($request->input('min_stock'))) {
+                $product_details['min_stock'] = $this->productUtil->num_uf($request->input('min_stock'));
+            }
+            
+            if (! empty($request->input('max_stock'))) {
+                $product_details['max_stock'] = $this->productUtil->num_uf($request->input('max_stock'));
+            }
+            
+            if (! empty($request->input('reorder_point'))) {
+                $product_details['reorder_point'] = $this->productUtil->num_uf($request->input('reorder_point'));
+            }
+            
+            if (! empty($request->input('default_purchase_price'))) {
+                $product_details['default_purchase_price'] = $this->productUtil->num_uf($request->input('default_purchase_price'));
+            }
+            
+            if (! empty($request->input('default_sales_price'))) {
+                $product_details['default_sales_price'] = $this->productUtil->num_uf($request->input('default_sales_price'));
+            }
+            
+            if (! empty($request->input('profit_percentage'))) {
+                $product_details['profit_percentage'] = $this->productUtil->num_uf($request->input('profit_percentage'));
+            }
+            
+            if (! empty($request->input('discount_limit'))) {
+                $product_details['discount_limit'] = $this->productUtil->num_uf($request->input('discount_limit'));
+            }
+            
+            // Process checkboxes
+            $product_details['serial_required'] = (! empty($request->input('serial_required')) && $request->input('serial_required') == 1) ? 1 : 0;
+            $product_details['expiry_required'] = (! empty($request->input('expiry_required')) && $request->input('expiry_required') == 1) ? 1 : 0;
+            $product_details['is_active'] = (! empty($request->input('is_active')) && $request->input('is_active') == 1) ? 1 : 0;
 
             //upload document
             $product_details['image'] = $this->productUtil->uploadFile($request, 'image', config('constants.product_img_path'), 'image');
