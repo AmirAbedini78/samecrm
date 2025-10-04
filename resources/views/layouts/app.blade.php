@@ -55,13 +55,17 @@
         @endif
 
         <!-- Add currency related field-->
-        <input type="hidden" id="__code" value="{{ session('currency')['code'] }}">
-        <input type="hidden" id="__symbol" value="{{ session('currency')['symbol'] }}">
-        <input type="hidden" id="__thousand" value="{{ session('currency')['thousand_separator'] }}">
-        <input type="hidden" id="__decimal" value="{{ session('currency')['decimal_separator'] }}">
-        <input type="hidden" id="__symbol_placement" value="{{ session('business.currency_symbol_placement') }}">
-        <input type="hidden" id="__precision" value="{{ session('business.currency_precision', 2) }}">
-        <input type="hidden" id="__quantity_precision" value="{{ session('business.quantity_precision', 2) }}">
+        @php
+            $currency = session('currency');
+            $business = session('business');
+        @endphp
+        <input type="hidden" id="__code" value="{{ $currency['code'] ?? 'USD' }}">
+        <input type="hidden" id="__symbol" value="{{ $currency['symbol'] ?? '$' }}">
+        <input type="hidden" id="__thousand" value="{{ $currency['thousand_separator'] ?? ',' }}">
+        <input type="hidden" id="__decimal" value="{{ $currency['decimal_separator'] ?? '.' }}">
+        <input type="hidden" id="__symbol_placement" value="{{ $business->currency_symbol_placement ?? 'before' }}">
+        <input type="hidden" id="__precision" value="{{ $business->currency_precision ?? 2 }}">
+        <input type="hidden" id="__quantity_precision" value="{{ $business->quantity_precision ?? 2 }}">
         <!-- End of currency related field-->
         @can('view_export_buttons')
             <input type="hidden" id="view_export_buttons">

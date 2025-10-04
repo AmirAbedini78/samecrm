@@ -15,6 +15,7 @@ use App\Utils\TransactionUtil;
 use App\Utils\ProductUtil;
 use App\Utils\Util;
 use App\VariationLocationDetails;
+use Carbon\Carbon;
 use Datatables;
 use DB;
 use Illuminate\Http\Request;
@@ -80,8 +81,34 @@ class HomeController extends Controller
         $fy = $this->businessUtil->getCurrentFinancialYear($business_id);
 
         $currency = Currency::where('id', request()->session()->get('business.currency_id'))->first();
+        
+        // If currency not found, try to get from business or use default
+        if (!$currency) {
+            $business = request()->session()->get('business');
+            if ($business && isset($business->currency_id)) {
+                $currency = Currency::find($business->currency_id);
+            }
+            
+            // If still not found, get the first currency or create a default one
+            if (!$currency) {
+                $currency = Currency::first();
+                if (!$currency) {
+                    // Create a default currency if none exists
+                    $currency = Currency::create([
+                        'country' => 'United States',
+                        'currency' => 'US Dollar',
+                        'code' => 'USD',
+                        'symbol' => '$',
+                        'thousand_separator' => ',',
+                        'decimal_separator' => '.',
+                        'exchange_rate' => 1.0,
+                        'is_default' => 1
+                    ]);
+                }
+            }
+        }
         //ensure start date starts from at least 30 days before to get sells last 30 days
-        $least_30_days = \Carbon::parse($fy['start'])->subDays(30)->format('Y-m-d');
+        $least_30_days = Carbon::parse($fy['start'])->subDays(30)->format('Y-m-d');
 
         //get all sells
         $sells_this_fy = $this->transactionUtil->getSellsCurrentFy($business_id, $least_30_days, $fy['end']);
@@ -93,7 +120,7 @@ class HomeController extends Controller
         $all_sell_values = [];
         $dates = [];
         for ($i = 29; $i >= 0; $i--) {
-            $date = \Carbon::now()->subDays($i)->format('Y-m-d');
+            $date = Carbon::now()->subDays($i)->format('Y-m-d');
             $dates[] = $date;
 
             $labels[] = date('j M Y', strtotime($date));

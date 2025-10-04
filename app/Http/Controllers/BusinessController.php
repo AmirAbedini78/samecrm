@@ -298,6 +298,15 @@ class BusinessController extends Controller
 
         $business_id = request()->session()->get('user.business_id');
         $business = Business::where('id', $business_id)->first();
+        
+        if (!$business) {
+            // If business not found, try to get the first business or create a default one
+            $business = Business::first();
+            if (!$business) {
+                // If no business exists, redirect to business registration
+                return redirect()->route('business.getRegister');
+            }
+        }
 
         $currencies = $this->businessUtil->allCurrencies();
         $tax_details = TaxRate::forBusinessDropdown($business_id);

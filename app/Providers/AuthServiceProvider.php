@@ -26,17 +26,16 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user, $ability) {
-            if (in_array($ability, ['backup', 'superadmin',
-                'manage_modules', ])) {
-                $administrator_list = config('constants.administrator_usernames');
-
-                if (in_array(strtolower($user->username), explode(',', strtolower($administrator_list)))) {
-                    return true;
-                }
-            } else {
-                if ($user->hasRole('Admin#'.$user->business_id)) {
-                    return true;
-                }
+            $administrator_list = config('constants.administrator_usernames');
+            
+            // Check if user is superadmin first
+            if (in_array(strtolower($user->username), explode(',', strtolower($administrator_list)))) {
+                return true;
+            }
+            
+            // Then check if user has Admin role
+            if ($user->hasRole('Admin#'.$user->business_id)) {
+                return true;
             }
         });
     }

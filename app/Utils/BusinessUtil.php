@@ -13,6 +13,7 @@ use App\NotificationTemplate;
 use App\Printer;
 use App\Unit;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\VariationLocationDetails;
@@ -249,6 +250,17 @@ class BusinessUtil extends Util
     public function getCurrentFinancialYear($business_id)
     {
         $business = Business::where('id', $business_id)->first();
+        
+        if (!$business) {
+            // Return default financial year if business not found
+            return [
+                'start' => date('Y-01-01'),
+                'end' => date('Y-12-31'),
+                'start_date' => date('Y-01-01'),
+                'end_date' => date('Y-12-31')
+            ];
+        }
+        
         $start_month = $business->fy_start_month;
         $end_month = $start_month - 1;
         if ($start_month == 1) {
@@ -397,9 +409,9 @@ class BusinessUtil extends Util
     public function editTransactionDateRange($business_id, $edit_transaction_period)
     {
         if (is_numeric($edit_transaction_period)) {
-            return ['start' => \Carbon::today()
+            return ['start' => Carbon::today()
                 ->subDays($edit_transaction_period),
-                'end' => \Carbon::today(),
+                'end' => Carbon::today(),
             ];
         } elseif ($edit_transaction_period == 'fy') {
             //Editing allowed for current financial year

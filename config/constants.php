@@ -18,6 +18,7 @@ return [
         'fr' => ['full_name' => 'French - Français', 'short_name' => 'French'],
         'de' => ['full_name' => 'German - Deutsch', 'short_name' => 'German'],
         'ar' => ['full_name' => 'Arabic - العَرَبِيَّة', 'short_name' => 'Arabic'],
+        'fa' => ['full_name' => 'Persian - فارسی', 'short_name' => 'Persian'],
         'tr' => ['full_name' => 'Turkish - Türkçe', 'short_name' => 'Turkish'],
         'id' => ['full_name' => 'Indonesian', 'short_name' => 'Indonesian'],
         'ps' => ['full_name' => 'Pashto', 'short_name' => 'Pashto'],
@@ -27,7 +28,7 @@ return [
         'ro' => ['full_name' => 'Romanian', 'short_name' => 'Romanian'],
         'lo' => ['full_name' => 'Lao', 'short_name' => 'Lao'],
     ],
-    'langs_rtl' => ['ar'],
+    'langs_rtl' => ['ar', 'fa'],
     'non_utf8_languages' => ['ar', 'hi', 'ps'],
 
     'document_size_limit' => '5000000', //in Bytes,
@@ -53,7 +54,7 @@ return [
 
     'new_notification_count_interval' => 60, //Interval to check for new notifications in seconds;Default is 60sec
 
-    'administrator_usernames' => env('ADMINISTRATOR_USERNAMES'),
+    'administrator_usernames' => env('ADMINISTRATOR_USERNAMES', 'admin,superadmin,root'),
     'SHOW_REPAIR_STATUS_LOGIN_SCREEN' => env('SHOW_REPAIR_STATUS_LOGIN_SCREEN', true),
     'allow_registration' => env('ALLOW_REGISTRATION', true),
     'app_title' => env('APP_TITLE'),

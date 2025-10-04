@@ -16,12 +16,8 @@ class Language
      */
     public function handle($request, Closure $next)
     {
-        $locale = config('app.locale');
-        if ($request->session()->has('user.language')) {
-            $locale = $request->session()->get('user.language');
-        }
-        App::setLocale($locale);
-
+        // Language is already set in AppServiceProvider
+        // This middleware just ensures it's applied
         return $next($request);
     }
 }
