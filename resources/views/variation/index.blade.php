@@ -37,7 +37,8 @@
                     <thead>
                         <tr>
                             <th>@lang('product.variations')</th>
-                            <th>@lang('lang_v1.values')</th>
+                            <th>Product Name</th>
+                            <th>SKU</th>
                             <th>@lang('messages.action')</th>
                         </tr>
                     </thead>
@@ -51,4 +52,95 @@
     </section>
     <!-- /.content -->
 
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Destroy existing DataTable if it exists to avoid reinit errors
+            if ($.fn.DataTable.isDataTable('#variation_table')) {
+                $('#variation_table').DataTable().clear().destroy();
+                $('#variation_table').empty();
+            }
+            
+            // Rebuild table structure
+            $('#variation_table').html('<thead><tr><th>@lang("product.variations")</th><th>Product Name</th><th>SKU</th><th>@lang("messages.action")</th></tr></thead><tbody></tbody>');
+            
+            variation_table = $('#variation_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ action([\App\Http\Controllers\VariationTemplateController::class, 'index']) }}",
+                    dataSrc: function(json) {
+                        try {
+                            var rows = json && json.data ? json.data : [];
+                            if (!rows.length) return [];
+                            // If rows are array-shaped, normalize them to objects
+                            if (Array.isArray(rows[0])) {
+                                return rows.map(function(r){
+                                    return {
+                                        name: r[0] || '',
+                                        product_name: r[1] || '',
+                                        sub_sku: r[2] || '',
+                                        action: r[3] || ''
+                                    };
+                                });
+                            }
+                            return rows;
+                        } catch (e) { console.log('dataSrc normalize error:', e); return []; }
+                    },
+                    error: function(xhr, error, thrown) {
+                        console.log('AJAX Error:', error);
+                        console.log('Response:', xhr.responseText);
+                        console.log('Status:', xhr.status);
+                    }
+                },
+                columns: [
+                    {
+                        data: null,
+                        name: 'name',
+                        defaultContent: '',
+                        render: function(data, type, row) {
+                            // row may be object or array
+                            if (row && !Array.isArray(row)) return row.name || '';
+                            return (Array.isArray(row) ? (row[0] || '') : '');
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'product_name',
+                        defaultContent: '',
+                        render: function(data, type, row) {
+                            if (row && !Array.isArray(row)) return row.product_name || '';
+                            return (Array.isArray(row) ? (row[1] || '') : '');
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'sub_sku',
+                        defaultContent: '',
+                        render: function(data, type, row) {
+                            if (row && !Array.isArray(row)) return row.sub_sku || '';
+                            return (Array.isArray(row) ? (row[2] || '') : '');
+                        }
+                    },
+                    {
+                        data: null,
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        defaultContent: '',
+                        render: function(data, type, row) {
+                            if (row && !Array.isArray(row)) return row.action || '';
+                            return (Array.isArray(row) ? (row[3] || '') : '');
+                        }
+                    }
+                ],
+                language: {
+                    processing: "Loading...",
+                    emptyTable: "No variations found"
+                }
+            });
+        });
+    </script>
 @endsection

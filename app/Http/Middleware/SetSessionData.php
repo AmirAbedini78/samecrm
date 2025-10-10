@@ -194,8 +194,8 @@ class SetSessionData
                 ]);
             }
             
-            // Check if user has the Admin role
-            if (!$user->hasRole($admin_role_name)) {
+            // Only assign Admin role to superadmin users, not all users
+            if ($is_superadmin && !$user->hasRole($admin_role_name)) {
                 $user->assignRole($admin_role_name);
             }
             
@@ -250,11 +250,9 @@ class SetSessionData
                 \Spatie\Permission\Models\Permission::firstOrCreate(['name' => $permission]);
             }
             
-            // Give all permissions to Admin role
-            $admin_role->syncPermissions($permissions);
-            
-            // If user is superadmin, give them superadmin permissions directly
+            // Only give permissions to Admin role if user is superadmin
             if ($is_superadmin) {
+                $admin_role->syncPermissions($permissions);
                 $user->givePermissionTo(['superadmin', 'backup', 'manage_modules']);
             }
             

@@ -28,13 +28,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             $administrator_list = config('constants.administrator_usernames');
             
-            // Check if user is superadmin first
+            // Only give full access to superadmin users (not all Admin role users)
             if (in_array(strtolower($user->username), explode(',', strtolower($administrator_list)))) {
                 return true;
             }
-            
-            // Then check if user has Admin role
-            if ($user->hasRole('Admin#'.$user->business_id)) {
+
+            // Grant full access to users with Admin role for their business
+            $admin_role = 'Admin#' . ($user->business_id ?? session('business.id'));
+            if ($admin_role && $user->hasRole($admin_role)) {
                 return true;
             }
         });

@@ -15,6 +15,8 @@ class CheckUserLogin
      */
     public function handle($request, Closure $next)
     {
+        // Enforce login checks for all routes (remove debug bypass)
+        
         if (($request->user()->user_type != 'user' || $request->user()->allow_login != 1) && request()->segment(1) != 'home') {
             abort(403, 'Unauthorized action.');
         }

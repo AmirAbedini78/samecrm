@@ -48,7 +48,7 @@ class AdminSidebarMenu
           </svg>', 'active' => request()->segment(1) == 'home'])->order(5);
 
             //User management dropdown
-            if (true || auth()->user()->can('user.view') || auth()->user()->can('user.create') || auth()->user()->can('roles.view')) {
+            if (auth()->user()->can('user.view') || auth()->user()->can('user.create') || auth()->user()->can('roles.view')) {
                 $menu->dropdown(
                     __('user.user_management'),
                     function ($sub) {
@@ -86,7 +86,7 @@ class AdminSidebarMenu
             }
 
             //Contacts dropdown
-            if (true || auth()->user()->can('supplier.view') || auth()->user()->can('customer.view') || auth()->user()->can('supplier.view_own') || auth()->user()->can('customer.view_own')) {
+            if (auth()->user()->can('supplier.view') || auth()->user()->can('customer.view') || auth()->user()->can('supplier.view_own') || auth()->user()->can('customer.view_own')) {
                 $menu->dropdown(
                     __('contact.contacts'),
                     function ($sub) {
@@ -139,7 +139,7 @@ class AdminSidebarMenu
             }
 
             //Products dropdown
-            if (true || auth()->user()->can('product.view') || auth()->user()->can('product.create') ||
+            if (auth()->user()->can('product.view') || auth()->user()->can('product.create') ||
                 auth()->user()->can('brand.view') || auth()->user()->can('unit.view') ||
                 auth()->user()->can('category.view') || auth()->user()->can('brand.create') ||
                 auth()->user()->can('unit.create') || auth()->user()->can('category.create')) {
@@ -883,6 +883,26 @@ class AdminSidebarMenu
                   </svg>', 'id' => 'tour_step3']
                 )->order(85);
             }
+
+            // Inventory (Sepidar) dropdown
+            $menu->dropdown(
+                'Inventory',
+                function ($sub) {
+                    // Warehouse - Warehouse (انبار - انبار)
+                    $sub->url(
+                        action([\App\Http\Controllers\WarehouseController::class, 'index']),
+                        __('business.warehouses'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'warehouses']
+                    );
+
+                    // Warehouse - Items (انبار - اقلام)
+                    $sub->url(
+                        action([\App\Http\Controllers\ItemController::class, 'index']),
+                        __('product.items'),
+                        ['icon' => '', 'active' => request()->segment(1) == 'items']
+                    );
+                }
+            )->order(86);
         });
 
         //Add menus from modules

@@ -192,7 +192,7 @@ return [
     'manage_products' => 'Manage your products',
     'all_products' => 'All Products',
     'login' => 'Login',
-    'login_to_your' => 'Login to your',
+    'login_to_your' => 'Login to your SAME AFRAZ TAZHAK',
     'welcome_back' => 'Welcome Back',
     'register' => 'Register',
     'username' => 'Username',

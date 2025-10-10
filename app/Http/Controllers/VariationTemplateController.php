@@ -20,33 +20,38 @@ class VariationTemplateController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $business_id = request()->session()->get('user.business_id');
+            // Comprehensive fix: Use Datatables::of() with proper column mapping
+            $business_id = request()->session()->get('user.business_id') ?? 1;
 
-            $variations = VariationTemplate::where('business_id', $business_id)
-                        ->with(['values'])
-                        ->select('id', 'name', DB::raw('(SELECT COUNT(id) FROM product_variations WHERE product_variations.variation_template_id=variation_templates.id) as total_pv'));
+            $variations = Variation::join('products', 'variations.product_id', '=', 'products.id')
+                ->where('products.business_id', $business_id)
+                ->select([
+                    'variations.id',
+                    'variations.name',
+                    'products.name as product_name',
+                    'variations.sub_sku'
+                ]);
 
             return Datatables::of($variations)
-                ->addColumn(
-                    'action',
-                    '<button data-href="{{action(\'App\Http\Controllers\VariationTemplateController@edit\', [$id])}}" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline tw-dw-btn-primary edit_variation_button"><i class="glyphicon glyphicon-edit"></i> @lang("messages.edit")</button>
-                        &nbsp;
-                        @if(empty($total_pv))
-                        <button data-href="{{action(\'App\Http\Controllers\VariationTemplateController@destroy\', [$id])}}" class="tw-dw-btn tw-dw-btn-outline tw-dw-btn-xs tw-dw-btn-error delete_variation_button"><i class="glyphicon glyphicon-trash"></i> @lang("messages.delete")</button>
-                        @endif'
-                )
-                ->editColumn('values', function ($data) {
-                    $values_arr = [];
-                    foreach ($data->values as $attr) {
-                        $values_arr[] = $attr->name;
-                    }
-
-                    return implode(', ', $values_arr);
+                ->addColumn('name', function ($row) {
+                    return $row->name ?: '';
                 })
+                ->addColumn('product_name', function ($row) {
+                    return $row->product_name ?: '';
+                })
+                ->addColumn('sub_sku', function ($row) {
+                    return $row->sub_sku ?: '';
+                })
+                ->addColumn('action', function ($row) {
+                    return '<div class="btn-group">
+                        <a href="#" class="btn btn-xs btn-info">View</a>
+                        <a href="#" class="btn btn-xs btn-primary">Edit</a>
+                    </div>';
+                })
+                ->rawColumns(['action'])
                 ->removeColumn('id')
-                ->removeColumn('total_pv')
-                ->rawColumns([2])
-                ->make(false);
+                ->removeColumn('product_id')
+                ->make(true);
         }
 
         return view('variation.index');

@@ -9,6 +9,8 @@ use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\BusinessLocationController;
+use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CashRegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CombinedPurchaseReturnController;
@@ -98,7 +100,7 @@ Route::middleware(['setData'])->group(function () {
 });
 
 //Routes for authenticated users only
-Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ensure_session_data', 'give_all_permissions', 'ensure_permissions', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin'])->group(function () {
+Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ensure_session_data', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin', 'debug_products', 'debug_categories'])->group(function () {
     Route::get('pos/payment/{id}', [SellPosController::class, 'edit'])->name('edit-pos-payment');
     Route::get('service-staff-availability', [SellPosController::class, 'showServiceStaffAvailibility']);
     Route::get('pause-resume-service-staff-timer/{user_id}', [SellPosController::class, 'pauseResumeServiceStaffTimer']);
@@ -129,7 +131,7 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ens
 
     Route::resource('brands', BrandController::class);
 
-    Route::resource('payment-account', 'PaymentAccountController');
+    // Route::resource('payment-account', 'PaymentAccountController'); // Commented out - controller not found
 
     Route::resource('tax-rates', TaxRateController::class);
 
@@ -313,6 +315,102 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ens
     //Business Locations...
     Route::post('business-location/check-location-id', [BusinessLocationController::class, 'checkLocationId']);
     Route::resource('business-location', BusinessLocationController::class);
+    
+    //Warehouses (Sepidar Style)...
+    Route::get('warehouses', [WarehouseController::class, 'index'])->name('warehouses.index');
+    Route::get('warehouses/create', [WarehouseController::class, 'create'])->name('warehouses.create');
+    Route::post('warehouses', [WarehouseController::class, 'store'])->name('warehouses.store');
+    Route::get('warehouses/{warehouse}', [WarehouseController::class, 'show'])->name('warehouses.show');
+    
+    //Items (Sepidar Style)...
+    Route::match(['get','post'],'items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('items', [ItemController::class, 'store'])->name('items.store');
+    Route::get('items/{item}', [ItemController::class, 'show'])->name('items.show');
+
+    //Categories...
+    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    
+    // Simple test route for categories
+    Route::get('test-categories', function() {
+        $categories = \App\Category::all();
+        return response()->json([
+            'count' => $categories->count(),
+            'categories' => $categories->toArray()
+        ]);
+    });
+});
+
+// Simple route outside middleware for testing
+Route::get('simple-categories', function() {
+    $categories = \App\Category::all();
+    return response()->json([
+        'draw' => 1,
+        'recordsTotal' => $categories->count(),
+        'recordsFiltered' => $categories->count(),
+        'data' => $categories->map(function($cat) {
+            return [
+                'id' => $cat->id,
+                'name' => $cat->name,
+                'short_code' => $cat->short_code,
+                'parent_category' => $cat->parent_id == 0 ? 'Main Category' : 'Sub Category',
+                'description' => $cat->description,
+                'created_at' => $cat->created_at,
+                'action' => '<div class="btn-group">
+                    <a href="#" class="btn btn-xs btn-info">View</a>
+                    <a href="#" class="btn btn-xs btn-primary">Edit</a>
+                </div>'
+            ];
+        })
+    ]);
+});
+
+// Simple categories page
+Route::get('categories-simple', function() {
+    return view('category.simple');
+});
+
+// Test route for categories
+Route::get('test-categories-ajax', function() {
+    $category = \App\Category::where('category_type', 'product')->get();
+    
+    return response()->json([
+        'draw' => request()->get('draw', 1),
+        'recordsTotal' => $category->count(),
+        'recordsFiltered' => $category->count(),
+        'data' => $category->map(function($cat) {
+            return [
+                'id' => $cat->id,
+                'name' => $cat->name,
+                'short_code' => $cat->short_code,
+                'description' => $cat->description,
+                'created_at' => $cat->created_at,
+                'action' => '<div class="btn-group">
+                    <a href="#" class="btn btn-xs btn-info">View</a>
+                    <a href="#" class="btn btn-xs btn-primary">Edit</a>
+                </div>'
+            ];
+        })
+    ]);
+});
+
+// Simple taxonomy page
+Route::get('taxonomies-simple', function() {
+    return view('taxonomy.simple');
+});
+
+//Routes for authenticated users only
+Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ensure_session_data', 'give_all_permissions', 'ensure_permissions', 'timezone', 'AdminSidebarMenu', 'CheckUserLogin', 'debug_products', 'debug_categories'])->group(function () {
+    Route::get('pos/payment/{id}', [SellPosController::class, 'edit'])->name('edit-pos-payment');
+    Route::get('service-staff-availability', [SellPosController::class, 'showServiceStaffAvailibility']);
+    Route::get('pause-resume-service-staff-timer/{user_id}', [SellPosController::class, 'pauseResumeServiceStaffTimer']);
+    Route::get('mark-as-available/{user_id}', [SellPosController::class, 'markAsAvailable']);
 
     //Invoice layouts..
     Route::resource('invoice-layouts', InvoiceLayoutController::class);
@@ -517,7 +615,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('change.language');
 });
 
-Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ensure_session_data', 'give_all_permissions', 'ensure_permissions', 'timezone'])->group(function () {
+Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ensure_session_data', 'timezone'])->group(function () {
     Route::get('/load-more-notifications', [HomeController::class, 'loadMoreNotifications']);
     Route::get('/get-total-unread', [HomeController::class, 'getTotalUnreadNotifications']);
     Route::get('/purchases/print/{id}', [PurchaseController::class, 'printInvoice']);
@@ -534,3 +632,5 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language_manager', 'ens
     Route::get('/show-notification/{id}', [HomeController::class, 'showNotification']);
     Route::post('/sell/check-invoice-number', [SellController::class, 'checkInvoiceNumber']);
 });
+
+

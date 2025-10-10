@@ -74,5 +74,7 @@ class Kernel extends HttpKernel
         'AdminSidebarMenu' => \App\Http\Middleware\AdminSidebarMenu::class,
         'superadmin' => \App\Http\Middleware\Superadmin::class,
         'CheckUserLogin' => \App\Http\Middleware\CheckUserLogin::class,
+        'debug_products' => \App\Http\Middleware\DebugProducts::class,
+        'debug_categories' => \App\Http\Middleware\DebugCategories::class,
     ];
 }

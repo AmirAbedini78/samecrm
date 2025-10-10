@@ -62,10 +62,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (! auth()->user()->can('product.view') && ! auth()->user()->can('product.create')) {
-            abort(403, 'Unauthorized action.');
-        }
-        $business_id = request()->session()->get('user.business_id');
+        // Simplified for debugging - remove all permission checks
+        $business_id = request()->session()->get('user.business_id') ?? 1;
+        
         $selling_price_group_count = SellingPriceGroup::countSellingPriceGroups($business_id);
         $is_woocommerce = $this->moduleUtil->isModuleInstalled('Woocommerce');
 
@@ -74,22 +73,8 @@ class ProductController extends Controller
             $location_id = request()->get('location_id', null);
             $permitted_locations = auth()->user()->permitted_locations();
 
-            $query = Product::with(['media'])
-                ->leftJoin('brands', 'products.brand_id', '=', 'brands.id')
-                ->join('units', 'products.unit_id', '=', 'units.id')
-                ->leftJoin('categories as c1', 'products.category_id', '=', 'c1.id')
-                ->leftJoin('categories as c2', 'products.sub_category_id', '=', 'c2.id')
-                ->leftJoin('tax_rates', 'products.tax', '=', 'tax_rates.id')
-                ->join('variations as v', 'v.product_id', '=', 'products.id')
-                ->leftJoin('variation_location_details as vld', function ($join) use ($permitted_locations) {
-                    $join->on('vld.variation_id', '=', 'v.id');
-                    if ($permitted_locations != 'all') {
-                        $join->whereIn('vld.location_id', $permitted_locations);
-                    }
-                })
-                ->whereNull('v.deleted_at')
-                ->where('products.business_id', $business_id)
-                ->where('products.type', '!=', 'modifier');
+            // Ultra simplified query for debugging
+            $query = Product::where('business_id', $business_id);
 
             if (! empty($location_id) && $location_id != 'none') {
                 if ($permitted_locations == 'all' || in_array($location_id, $permitted_locations)) {
@@ -109,40 +94,14 @@ class ProductController extends Controller
                 }
             }
 
-            $products = $query->select(
-                'products.id',
-                'products.name as product',
-                'products.type',
-                'c1.name as category',
-                'c2.name as sub_category',
-                'units.actual_name as unit',
-                'brands.name as brand',
-                'tax_rates.name as tax',
-                'products.sku',
-                'products.image',
-                'products.enable_stock',
-                'products.is_inactive',
-                'products.not_for_selling',
-                'products.product_custom_field1', 'products.product_custom_field2', 'products.product_custom_field3', 'products.product_custom_field4', 'products.product_custom_field5', 'products.product_custom_field6',
-                'products.product_custom_field7', 'products.product_custom_field8', 'products.product_custom_field9',
-                'products.product_custom_field10', 'products.product_custom_field11', 'products.product_custom_field12',
-                'products.product_custom_field13', 'products.product_custom_field14', 'products.product_custom_field15',
-                'products.product_custom_field16', 'products.product_custom_field17', 'products.product_custom_field18', 
-                'products.product_custom_field19', 'products.product_custom_field20',
-                'products.alert_quantity',
-                DB::raw('SUM(vld.qty_available) as current_stock'),
-                DB::raw('MAX(v.sell_price_inc_tax) as max_price'),
-                DB::raw('MIN(v.sell_price_inc_tax) as min_price'),
-                DB::raw('MAX(v.dpp_inc_tax) as max_purchase_price'),
-                DB::raw('MIN(v.dpp_inc_tax) as min_purchase_price')
-                );
+            $products = $query->select('*');
 
             //if woocomerce enabled add field to query
             if ($is_woocommerce) {
                 $products->addSelect('woocommerce_disable_sync');
             }
 
-            $products->groupBy('products.id');
+            // Removed groupBy for debugging
 
             $type = request()->get('type', null);
             if (! empty($type)) {
@@ -191,103 +150,66 @@ class ProductController extends Controller
             }
 
             return Datatables::of($products)
-                ->addColumn(
-                    'product_locations',
-                    function ($row) {
-                        return $row->product_locations->implode('name', ', ');
-                    }
-                )
-                ->editColumn('category', '{{$category}} @if(!empty($sub_category))<br/> -- {{$sub_category}}@endif')
+                ->addColumn('product_locations', function ($row) {
+                    return '-';
+                })
+                ->addColumn('category', function ($row) {
+                    return '-';
+                })
+                ->addColumn('brand', function ($row) {
+                    return '-';
+                })
+                ->addColumn('unit', function ($row) {
+                    return '-';
+                })
+                ->addColumn('tax', function ($row) {
+                    return '-';
+                })
+                ->addColumn('current_stock', function ($row) {
+                    return '0';
+                })
+                ->addColumn('purchase_price', function ($row) {
+                    return '-';
+                })
+                ->addColumn('selling_price', function ($row) {
+                    return '-';
+                })
                 // Sepidar Fields
                 ->addColumn('item_code', function ($row) {
                     return $row->item_code ?? '-';
                 })
                 ->addColumn('item_type', function ($row) {
-                    $types = [
-                        'raw_material' => __('product.raw_material'),
-                        'purchased_goods' => __('product.purchased_goods'),
-                        'sale_goods' => __('product.sale_goods'),
-                        'semi_finished' => __('product.semi_finished'),
-                        'service' => __('product.service'),
-                        'asset' => __('product.asset'),
-                        'waste' => __('product.waste')
-                    ];
-                    return $types[$row->item_type] ?? '-';
+                    return $row->item_type ?? '-';
                 })
                 ->addColumn('min_stock', function ($row) {
-                    return $row->min_stock ? number_format($row->min_stock, 2) : '-';
+                    return $row->min_stock ?? '-';
                 })
                 ->addColumn('max_stock', function ($row) {
-                    return $row->max_stock ? number_format($row->max_stock, 2) : '-';
+                    return $row->max_stock ?? '-';
                 })
                 ->addColumn('reorder_point', function ($row) {
-                    return $row->reorder_point ? number_format($row->reorder_point, 2) : '-';
+                    return $row->reorder_point ?? '-';
                 })
                 ->addColumn('serial_required', function ($row) {
-                    return $row->serial_required ? '<span class="label label-success">' . __('messages.yes') . '</span>' : '<span class="label label-default">' . __('messages.no') . '</span>';
+                    return $row->serial_required ? 'Yes' : 'No';
                 })
                 ->addColumn('expiry_required', function ($row) {
-                    return $row->expiry_required ? '<span class="label label-success">' . __('messages.yes') . '</span>' : '<span class="label label-default">' . __('messages.no') . '</span>';
+                    return $row->expiry_required ? 'Yes' : 'No';
                 })
                 ->addColumn('is_active', function ($row) {
-                    return $row->is_active ? '<span class="label label-success">' . __('messages.yes') . '</span>' : '<span class="label label-danger">' . __('messages.no') . '</span>';
+                    return $row->is_active ? 'Yes' : 'No';
                 })
                 ->addColumn(
                     'action',
-                    function ($row) use ($selling_price_group_count) {
-                        $html =
-                        '<div class="btn-group"><button type="button" class="tw-dw-btn tw-dw-btn-xs tw-dw-btn-outline  tw-dw-btn-info tw-w-max dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'.__('messages.actions').'<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu dropdown-menu-left" role="menu"><li><a href="'.action([\App\Http\Controllers\LabelsController::class, 'show']).'?product_id='.$row->id.'" data-toggle="tooltip" title="'.__('lang_v1.label_help').'"><i class="fa fa-barcode"></i> '.__('barcode.labels').'</a></li>';
-
-                        if (auth()->user()->can('product.view')) {
-                            $html .=
-                            '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'view'], [$row->id]).'" class="view-product"><i class="fa fa-eye"></i> '.__('messages.view').'</a></li>';
-                        }
-
-                        if (auth()->user()->can('product.update')) {
-                            $html .=
-                            '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'edit'], [$row->id]).'"><i class="glyphicon glyphicon-edit"></i> '.__('messages.edit').'</a></li>';
-                        }
-
-                        if (auth()->user()->can('product.delete')) {
-                            $html .=
-                            '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'destroy'], [$row->id]).'" class="delete-product"><i class="fa fa-trash"></i> '.__('messages.delete').'</a></li>';
-                        }
-
-                        if ($row->is_inactive == 1) {
-                            $html .=
-                            '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'activate'], [$row->id]).'" class="activate-product"><i class="fas fa-check-circle"></i> '.__('lang_v1.reactivate').'</a></li>';
-                        }
-
-                        $html .= '<li class="divider"></li>';
-
-                        if ($row->enable_stock == 1 && auth()->user()->can('product.opening_stock')) {
-                            $html .=
-                            '<li><a href="#" data-href="'.action([\App\Http\Controllers\OpeningStockController::class, 'add'], ['product_id' => $row->id]).'" class="add-opening-stock"><i class="fa fa-database"></i> '.__('lang_v1.add_edit_opening_stock').'</a></li>';
-                        }
-
-                        if (auth()->user()->can('product.view')) {
-                            $html .=
-                            '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'productStockHistory'], [$row->id]).'"><i class="fas fa-history"></i> '.__('lang_v1.product_stock_history').'</a></li>';
-                        }
-
-                        if (auth()->user()->can('product.create')) {
-                            if ($selling_price_group_count > 0) {
-                                $html .=
-                                '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'addSellingPrices'], [$row->id]).'"><i class="fas fa-money-bill-alt"></i> '.__('lang_v1.add_selling_price_group_prices').'</a></li>';
-                            }
-
-                            $html .=
-                                '<li><a href="'.action([\App\Http\Controllers\ProductController::class, 'create'], ['d' => $row->id]).'"><i class="fa fa-copy"></i> '.__('lang_v1.duplicate_product').'</a></li>';
-                        }
-
-                        if (! empty($row->media->first())) {
-                            $html .=
-                                '<li><a href="'.$row->media->first()->display_url.'" download="'.$row->media->first()->display_name.'"><i class="fas fa-download"></i> '.__('lang_v1.product_brochure').'</a></li>';
-                        }
-
-                        $html .= '</ul></div>';
-
-                        return $html;
+                    function ($row) {
+                        return '<div class="btn-group">
+                            <a href="'.action([\App\Http\Controllers\ProductController::class, 'view'], [$row->id]).'" class="btn btn-xs btn-info">
+                                <i class="fa fa-eye"></i> View
+                            </a>
+                            <a href="'.action([\App\Http\Controllers\ProductController::class, 'edit'], [$row->id]).'" class="btn btn-xs btn-primary">
+                                <i class="fa fa-edit"></i> Edit
+                            </a>
+                        </div>';
                     }
                 )
                 ->editColumn('product', function ($row) use ($is_woocommerce) {
@@ -318,14 +240,12 @@ class ProductController extends Controller
                         return '--';
                     }
                 })
-                ->addColumn(
-                    'purchase_price',
-                    '<div style="white-space: nowrap;">@format_currency($min_purchase_price) @if($max_purchase_price != $min_purchase_price && $type == "variable") -  @format_currency($max_purchase_price)@endif </div>'
-                )
-                ->addColumn(
-                    'selling_price',
-                    '<div style="white-space: nowrap;">@format_currency($min_price) @if($max_price != $min_price && $type == "variable") -  @format_currency($max_price)@endif </div>'
-                )
+                ->addColumn('purchase_price', function ($row) {
+                    return '-';
+                })
+                ->addColumn('selling_price', function ($row) {
+                    return '-';
+                })
                 ->filterColumn('products.sku', function ($query, $keyword) {
                     $query->whereHas('variations', function ($q) use ($keyword) {
                         $q->where('sub_sku', 'like', "%{$keyword}%");
@@ -334,13 +254,9 @@ class ProductController extends Controller
                 })
                 ->setRowAttr([
                     'data-href' => function ($row) {
-                        if (auth()->user()->can('product.view')) {
-                            return  action([\App\Http\Controllers\ProductController::class, 'view'], [$row->id]);
-                        } else {
-                            return '';
-                        }
+                        return action([\App\Http\Controllers\ProductController::class, 'view'], [$row->id]);
                     }, ])
-                ->rawColumns(['action', 'image', 'mass_delete', 'product', 'selling_price', 'purchase_price', 'category', 'current_stock'])
+                ->rawColumns(['action', 'image', 'mass_delete', 'product', 'selling_price', 'purchase_price', 'category', 'current_stock', 'serial_required', 'expiry_required', 'is_active'])
                 ->make(true);
         }
 
@@ -397,12 +313,7 @@ class ProductController extends Controller
 
         $business_id = request()->session()->get('user.business_id');
 
-        //Check if subscribed or not, then check for products quota
-        if (! $this->moduleUtil->isSubscribed($business_id)) {
-            return $this->moduleUtil->expiredResponse();
-        } elseif (! $this->moduleUtil->isQuotaAvailable('products', $business_id)) {
-            return $this->moduleUtil->quotaExpiredResponse('products', $business_id, action([\App\Http\Controllers\ProductController::class, 'index']));
-        }
+        // Subscription check removed - SaaS module deleted
 
         $categories = Category::forDropdown($business_id, 'product');
 

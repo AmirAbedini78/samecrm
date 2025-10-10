@@ -23,7 +23,13 @@
                     processing: true,
                     serverSide: true,
                     fixedHeader:false,
-                    ajax: '/taxonomies?type=' + category_type,
+                    ajax: {
+                        url: '/test-categories-ajax',
+                        error: function(xhr, error, thrown) {
+                            console.log('AJAX Error:', error);
+                            console.log('Response:', xhr.responseText);
+                        }
+                    },
                     columns: [
                         { data: 'name', name: 'name', orderable: false, searchable: false },
                         @if($cat_code_enabled)

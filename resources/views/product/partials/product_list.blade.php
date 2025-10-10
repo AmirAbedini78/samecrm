@@ -1,5 +1,5 @@
 @php 
-    $colspan = 23; // Updated for Sepidar fields
+    $colspan = 23; // Base columns
     $custom_labels = json_decode(session('business.custom_labels'), true);
 @endphp
 <table class="table table-bordered table-striped ajax_view hide-footer" id="product_table">

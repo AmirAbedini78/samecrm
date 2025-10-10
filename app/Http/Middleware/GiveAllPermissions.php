@@ -24,6 +24,9 @@ class GiveAllPermissions
                 return $next($request);
             }
             
+            // Debug: Log user permissions
+            \Log::info('User permissions before: ' . $user->getAllPermissions()->pluck('name')->implode(', '));
+            
             // All possible permissions
             $all_permissions = [
                 'dashboard.data',

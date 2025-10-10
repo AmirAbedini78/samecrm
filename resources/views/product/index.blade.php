@@ -264,6 +264,10 @@
                     "targets": [0, 1, 2],
                     "orderable": false,
                     "searchable": false
+                }, {
+                    "targets": [13, 14, 15, 16, 17, 18, 19, 20], // Sepidar fields
+                    "orderable": false,
+                    "searchable": false
                 }],
                 columns: [{
                         data: 'mass_delete'
@@ -321,6 +325,45 @@
                     {
                         data: 'sku',
                         name: 'products.sku'
+                    },
+                    // Sepidar Fields
+                    {
+                        data: 'item_code',
+                        name: 'products.item_code'
+                    },
+                    {
+                        data: 'item_type',
+                        name: 'products.item_type'
+                    },
+                    {
+                        data: 'min_stock',
+                        name: 'products.min_stock',
+                        searchable: false
+                    },
+                    {
+                        data: 'max_stock',
+                        name: 'products.max_stock',
+                        searchable: false
+                    },
+                    {
+                        data: 'reorder_point',
+                        name: 'products.reorder_point',
+                        searchable: false
+                    },
+                    {
+                        data: 'serial_required',
+                        name: 'products.serial_required',
+                        searchable: false
+                    },
+                    {
+                        data: 'expiry_required',
+                        name: 'products.expiry_required',
+                        searchable: false
+                    },
+                    {
+                        data: 'is_active',
+                        name: 'products.is_active',
+                        searchable: false
                     },
                     {
                         data: 'product_custom_field1',

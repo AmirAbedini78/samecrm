@@ -1,0 +1,21 @@
+
+   InvalidArgumentException 
+
+  Unexpected end of input
+
+  at C:\laragon\www\samecrm\vendor\psy\psysh\src\Shell.php:887
+    [90m883[0m[90m▕ [0m
+    [90m884[0m[90m▕ [0m[35;1m        if (![0m[39;1m$this[0m[35;1m->[0m[39;1mhasValidCode[0m[35;1m()) {[0m
+    [90m885[0m[90m▕ [0m[35;1m            [0m[39;1m$this[0m[35;1m->[0m[39;1mpopCodeStack[0m[35;1m();[0m
+    [90m886[0m[90m▕ [0m
+[31;1m  ➜ [0m[3;1m887[0m[90m▕ [0m[35;1m            throw new \InvalidArgumentException([0m[37m'Unexpected end of input'[0m[35;1m);[0m
+    [90m888[0m[90m▕ [0m[35;1m        }[0m
+    [90m889[0m[90m▕ [0m[35;1m    }[0m
+    [90m890[0m[90m▕ [0m
+    [90m891[0m[90m▕ [0m[35;1m    [0m[90;3m/**[0m
+
+  1   C:\laragon\www\samecrm\vendor\psy\psysh\src\Shell.php:1342
+      Psy\Shell::setCode("'$u=App\User::where(username,USERNAME)-;")
+
+  2   C:\laragon\www\samecrm\vendor\laravel\tinker\src\Console\TinkerCommand.php:76
+      Psy\Shell::execute("'$u=App\User::where(username,USERNAME)-;")

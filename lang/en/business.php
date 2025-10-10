@@ -129,4 +129,25 @@ return [
     'building_number' => 'Building number',
     'additional_number' => 'Additional number',
     'additional_number_secondary' => 'Additional number/Secondary Number',
+    
+    // Sepidar Warehouse Fields
+    'warehouse_code' => 'Warehouse Code',
+    'warehouse_type' => 'Warehouse Type',
+    'central' => 'Central',
+    'branch' => 'Branch',
+    'consignment' => 'Consignment',
+    'quarantine' => 'Quarantine',
+    'waste' => 'Waste',
+    'temporary' => 'Temporary',
+    'warehouse_keeper' => 'Warehouse Keeper',
+    'capacity' => 'Capacity',
+    'capacity_unit' => 'Capacity Unit',
+    'inventory_account_id' => 'Inventory Account ID',
+    'issue_account_id' => 'Issue Account ID',
+    'storage_address' => 'Storage Address',
+    'description' => 'Description',
+    
+    // Additional Warehouse Fields
+    'warehouses' => 'Warehouses',
+    'add_warehouse' => 'Add Warehouse',
 ];

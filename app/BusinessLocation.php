@@ -165,4 +165,5 @@ class BusinessLocation extends Model
 
         return $address;
     }
+
 }

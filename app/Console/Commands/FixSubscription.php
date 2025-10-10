@@ -51,7 +51,7 @@ class FixSubscription extends Command
         $package = Package::first();
         if (!$package) {
             $package = Package::create([
-                'name' => 'Ultimate Package',
+                'name' => 'SAME AFRAZ Package',
                 'price' => 0,
                 'interval' => 'month',
                 'interval_count' => 1,

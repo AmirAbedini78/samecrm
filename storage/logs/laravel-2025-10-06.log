@@ -1,0 +1,177 @@
+[2025-10-06 13:23:14] local.INFO: Products request: http://samecrm.test/products  
+[2025-10-06 13:23:14] local.INFO: User: Amir007  
+[2025-10-06 13:23:14] local.INFO: Business ID: 1  
+[2025-10-06 13:23:14] local.INFO: Products count: 11  
+[2025-10-06 13:23:14] local.INFO: Products with business_id=1: 11  
+[2025-10-06 13:23:19] local.INFO: Products request: http://samecrm.test/products  
+[2025-10-06 13:23:19] local.INFO: User: Amir007  
+[2025-10-06 13:23:19] local.INFO: Business ID: 1  
+[2025-10-06 13:23:20] local.INFO: Products count: 11  
+[2025-10-06 13:23:20] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:45:19] local.ERROR: Unexpected end of input {"exception":"[object] (InvalidArgumentException(code: 0): Unexpected end of input at C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php:887)
+[stacktrace]
+#0 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(1342): Psy\\Shell->setCode('echo 'Variation', true)
+#1 C:\\laragon\\www\\samecrm\\vendor\\laravel\\tinker\\src\\Console\\TinkerCommand.php(76): Psy\\Shell->execute('echo 'Variation')
+#2 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Laravel\\Tinker\\Console\\TinkerCommand->handle()
+#3 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#4 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#5 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#6 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#7 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#8 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#9 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(152): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#10 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 C:\\laragon\\www\\samecrm\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 {main}
+"} 
+[2025-10-06 16:38:06] local.ERROR: PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR, expecting T_VARIABLE on line 1 {"exception":"[object] (Psy\\Exception\\ParseErrorException(code: 0): PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR, expecting T_VARIABLE on line 1 at C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Exception\\ParseErrorException.php:44)
+[stacktrace]
+#0 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(332): Psy\\Exception\\ParseErrorException::fromParseError(Object(PhpParser\\Error))
+#1 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(261): Psy\\CodeCleaner->parse('<?php echo 'Var...', false)
+#2 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(848): Psy\\CodeCleaner->clean(Array, false)
+#3 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(877): Psy\\Shell->addCode('echo 'Variation...', true)
+#4 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(1342): Psy\\Shell->setCode('echo 'Variation...', true)
+#5 C:\\laragon\\www\\samecrm\\vendor\\laravel\\tinker\\src\\Console\\TinkerCommand.php(76): Psy\\Shell->execute('echo 'Variation...')
+#6 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Laravel\\Tinker\\Console\\TinkerCommand->handle()
+#7 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(152): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\laragon\\www\\samecrm\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
+[2025-10-06 16:38:14] local.ERROR: PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR on line 1 {"exception":"[object] (Psy\\Exception\\ParseErrorException(code: 0): PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR on line 1 at C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Exception\\ParseErrorException.php:44)
+[stacktrace]
+#0 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(332): Psy\\Exception\\ParseErrorException::fromParseError(Object(PhpParser\\Error))
+#1 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(261): Psy\\CodeCleaner->parse('<?php use App\\\\V...', false)
+#2 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(848): Psy\\CodeCleaner->clean(Array, false)
+#3 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(877): Psy\\Shell->addCode('use App\\\\Variati...', true)
+#4 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(1342): Psy\\Shell->setCode('use App\\\\Variati...', true)
+#5 C:\\laragon\\www\\samecrm\\vendor\\laravel\\tinker\\src\\Console\\TinkerCommand.php(76): Psy\\Shell->execute('use App\\\\Variati...')
+#6 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Laravel\\Tinker\\Console\\TinkerCommand->handle()
+#7 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(152): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\laragon\\www\\samecrm\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
+[2025-10-06 16:56:24] local.ERROR: PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR on line 1 {"exception":"[object] (Psy\\Exception\\ParseErrorException(code: 0): PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR on line 1 at C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Exception\\ParseErrorException.php:44)
+[stacktrace]
+#0 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(332): Psy\\Exception\\ParseErrorException::fromParseError(Object(PhpParser\\Error))
+#1 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(261): Psy\\CodeCleaner->parse('<?php echo 'Var...', false)
+#2 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(848): Psy\\CodeCleaner->clean(Array, false)
+#3 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(877): Psy\\Shell->addCode('echo 'Variation...', true)
+#4 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(1342): Psy\\Shell->setCode('echo 'Variation...', true)
+#5 C:\\laragon\\www\\samecrm\\vendor\\laravel\\tinker\\src\\Console\\TinkerCommand.php(76): Psy\\Shell->execute('echo 'Variation...')
+#6 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Laravel\\Tinker\\Console\\TinkerCommand->handle()
+#7 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(152): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\laragon\\www\\samecrm\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
+[2025-10-06 16:57:18] local.ERROR: PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR on line 1 {"exception":"[object] (Psy\\Exception\\ParseErrorException(code: 0): PHP Parse error: Syntax error, unexpected T_NS_SEPARATOR on line 1 at C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Exception\\ParseErrorException.php:44)
+[stacktrace]
+#0 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(332): Psy\\Exception\\ParseErrorException::fromParseError(Object(PhpParser\\Error))
+#1 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\CodeCleaner.php(261): Psy\\CodeCleaner->parse('<?php echo 'Var...', false)
+#2 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(848): Psy\\CodeCleaner->clean(Array, false)
+#3 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(877): Psy\\Shell->addCode('echo 'Variation...', true)
+#4 C:\\laragon\\www\\samecrm\\vendor\\psy\\psysh\\src\\Shell.php(1342): Psy\\Shell->setCode('echo 'Variation...', true)
+#5 C:\\laragon\\www\\samecrm\\vendor\\laravel\\tinker\\src\\Console\\TinkerCommand.php(76): Psy\\Shell->execute('echo 'Variation...')
+#6 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Laravel\\Tinker\\Console\\TinkerCommand->handle()
+#7 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#9 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#10 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(661): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#11 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#12 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#13 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(152): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#14 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#15 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#16 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#17 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 C:\\laragon\\www\\samecrm\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 {main}
+"} 
+[2025-10-06 16:58:33] local.ERROR: The "- " option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"- \" option does not exist. at C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Input\\ArgvInput.php:125)
+[stacktrace]
+#0 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Input\\ArgvInput.php(107): Symfony\\Component\\Console\\Input\\ArgvInput->parseShortOptionSet(' ID: {$v->id}, ...')
+#1 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Input\\ArgvInput.php(87): Symfony\\Component\\Console\\Input\\ArgvInput->parseShortOption('- ID: {$v->id},...')
+#2 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Input\\ArgvInput.php(74): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken('- ID: {$v->id},...', true)
+#3 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Input\\Input.php(56): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Command\\Command.php(285): Symfony\\Component\\Console\\Input\\Input->bind(Object(Symfony\\Component\\Console\\Input\\InputDefinition))
+#5 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(152): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#6 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Tinker\\Console\\TinkerCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 C:\\laragon\\www\\samecrm\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(102): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 C:\\laragon\\www\\samecrm\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 C:\\laragon\\www\\samecrm\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 {main}
+"} 
+[2025-10-06 15:15:49] local.INFO: Products request: http://samecrm.test/products  
+[2025-10-06 15:15:49] local.INFO: User: Amir007  
+[2025-10-06 15:15:49] local.INFO: Business ID: 1  
+[2025-10-06 15:15:49] local.INFO: Products count: 11  
+[2025-10-06 15:15:49] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:15:49] local.INFO: Products request: http://samecrm.test/products  
+[2025-10-06 15:15:49] local.INFO: User: Amir007  
+[2025-10-06 15:15:49] local.INFO: Business ID: 1  
+[2025-10-06 15:15:49] local.INFO: Products count: 11  
+[2025-10-06 15:15:49] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:16:03] local.INFO: Products request: http://samecrm.test/products/create  
+[2025-10-06 15:16:03] local.INFO: User: Amir007  
+[2025-10-06 15:16:03] local.INFO: Business ID: 1  
+[2025-10-06 15:16:03] local.INFO: Products count: 11  
+[2025-10-06 15:16:03] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:33:20] local.INFO: Products request: http://samecrm.test/products/create  
+[2025-10-06 15:33:20] local.INFO: User: Amir007  
+[2025-10-06 15:33:20] local.INFO: Business ID: 1  
+[2025-10-06 15:33:20] local.INFO: Products count: 11  
+[2025-10-06 15:33:20] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:39:21] local.INFO: Products request: http://samecrm.test/products  
+[2025-10-06 15:39:21] local.INFO: User: Amir007  
+[2025-10-06 15:39:21] local.INFO: Business ID: 1  
+[2025-10-06 15:39:21] local.INFO: Products count: 11  
+[2025-10-06 15:39:21] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:39:22] local.INFO: Products request: http://samecrm.test/products  
+[2025-10-06 15:39:22] local.INFO: User: Amir007  
+[2025-10-06 15:39:22] local.INFO: Business ID: 1  
+[2025-10-06 15:39:22] local.INFO: Products count: 11  
+[2025-10-06 15:39:22] local.INFO: Products with business_id=1: 11  
+[2025-10-06 15:39:27] local.INFO: Products request: http://samecrm.test/products/create  
+[2025-10-06 15:39:27] local.INFO: User: Amir007  
+[2025-10-06 15:39:27] local.INFO: Business ID: 1  
+[2025-10-06 15:39:27] local.INFO: Products count: 11  
+[2025-10-06 15:39:27] local.INFO: Products with business_id=1: 11  

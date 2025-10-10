@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'vendor' => 'Ultimate Fosters',
-    'vendor_url' => 'http://ultimatefosters.com',
+    'vendor' => 'SAME AFRAZ',
+    'vendor_url' => 'http://sameafraz.com',
     'email' => 'thewebfosters@gmail.com',
     'app_version' => '6.8.1',
     'lic1' => 'aHR0cHM6Ly9sLnVsdGltYXRlZm9zdGVycy5jb20vYXBpL3R5cGVfMQ==',

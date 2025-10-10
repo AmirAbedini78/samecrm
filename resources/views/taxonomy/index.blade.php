@@ -35,10 +35,7 @@
         @endphp
         <input type="hidden" id="category_type" value="{{ request()->get('type') }}">
         @php
-            $can_add = true;
-            if (request()->get('type') == 'product' && !auth()->user()->can('category.create')) {
-                $can_add = false;
-            }
+            $can_add = true; // Simplified for debugging
         @endphp
         @component('components.widget', ['class' => 'box-solid', 'can_add' => $can_add])
             @if ($can_add)

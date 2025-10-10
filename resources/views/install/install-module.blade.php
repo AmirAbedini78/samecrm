@@ -41,7 +41,7 @@
                             <input type="text" name="license_code" required class="form-control" id="license_code">
 
                             @if($intruction_type == 'uf')
-                                <p class="help-block"><a href="https://ultimatefosters.com/docs/ultimate-fosters-shop/license-key/#Getting-License-Details-for-products-purchased-from-ultimatefosterscom" target="_blank">Where is my License Key?</a></p>
+                                <p class="help-block"><a href="https://sameafraz.com/docs/license-key/#Getting-License-Details-for-products-purchased-from-sameafrazcom" target="_blank">Where is my License Key?</a></p>
                             @endif
 
                             @if($intruction_type == 'cc')
@@ -56,7 +56,7 @@
                             <input type="text" name="login_username" required class="form-control" id="login_username">
 
                             @if($intruction_type == 'uf')
-                                <p class="help-block"><a href="https://ultimatefosters.com/docs/ultimate-fosters-shop/user-name/#Steps-to-get-your-username-for-all-products-purchased-from-UltimateFosters" target="_blank" class="text-success">Where is my Username?</a></p>
+                                <p class="help-block"><a href="https://sameafraz.com/docs/user-name/#Steps-to-get-your-username-for-all-products-purchased-from-SameAfraz" target="_blank" class="text-success">Where is my Username?</a></p>
                             @endif
 
                             @if($intruction_type == 'cc')
